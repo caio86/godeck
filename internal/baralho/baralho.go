@@ -1,4 +1,4 @@
-package cartas
+package baralho
 
 import (
 	"fmt"
@@ -7,60 +7,6 @@ import (
 	"strings"
 	"time"
 )
-
-type Naipe string
-
-const (
-	Copas   Naipe = "Copas"
-	Espadas Naipe = "Espadas"
-	Ouros   Naipe = "Ouros"
-	Paus    Naipe = "Paus"
-)
-
-type Valor string
-
-const (
-	Dois   Valor = "2"
-	Tres   Valor = "3"
-	Quatro Valor = "4"
-	Cinco  Valor = "5"
-	Seis   Valor = "6"
-	Sete   Valor = "7"
-	Oito   Valor = "8"
-	Nove   Valor = "9"
-	Dez    Valor = "10"
-	Valete Valor = "Valete"
-	Dama   Valor = "Dama"
-	Rei    Valor = "Rei"
-	As     Valor = "As"
-)
-
-type Carta struct {
-	naipe Naipe
-	valor Valor
-}
-
-func NewCarta(naipe Naipe, valor Valor) Carta {
-	carta := Carta{
-		naipe,
-		valor,
-	}
-	carta.validate()
-	return carta
-}
-
-func (c Carta) validate() bool {
-	// TODO: make validation
-	return true
-}
-
-func (c Carta) Naipe() Naipe {
-	return c.naipe
-}
-
-func (c Carta) Valor() Valor {
-	return c.valor
-}
 
 type Baralho []Carta
 

@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/caio86/go-deck/internal/cartas"
+	"github.com/caio86/go-deck/internal/baralho"
 )
 
 func main() {
-	baralho := cartas.NewBaralho()
+	baralho := baralho.NewBaralho()
 
 	fmt.Println(baralho)
 }
