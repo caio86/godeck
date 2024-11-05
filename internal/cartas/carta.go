@@ -36,8 +36,30 @@ const (
 )
 
 type Carta struct {
-	Naipe
-	Valor
+	naipe Naipe
+	valor Valor
+}
+
+func NewCarta(naipe Naipe, valor Valor) Carta {
+	carta := Carta{
+		naipe,
+		valor,
+	}
+	carta.validate()
+	return carta
+}
+
+func (c Carta) validate() bool {
+	// TODO: make validation
+	return true
+}
+
+func (c Carta) Naipe() Naipe {
+	return c.naipe
+}
+
+func (c Carta) Valor() Valor {
+	return c.valor
 }
 
 type Baralho []Carta
@@ -49,7 +71,7 @@ func NewBaralho() Baralho {
 
 	for _, naipe := range naipes {
 		for _, valor := range valores {
-			baralho = append(baralho, Carta{Naipe: naipe, Valor: valor})
+			baralho = append(baralho, Carta{naipe: naipe, valor: valor})
 		}
 	}
 
@@ -65,8 +87,8 @@ func (b *Baralho) Embaralhar() {
 
 func (b *Baralho) Sort() {
 	ordemDosNaipes := map[Naipe]int{
-		Espadas: 0,
-		Copas:   1,
+		Copas:   0,
+		Espadas: 1,
 		Ouros:   2,
 		Paus:    3,
 	}
@@ -76,22 +98,28 @@ func (b *Baralho) Sort() {
 		Quatro: 2,
 		Cinco:  3,
 		Seis:   4,
-		Sete:   5, Oito: 6, Nove: 7, Dez: 8, Valete: 9, Dama: 10, Rei: 11,
-		As: 12,
+		Sete:   5,
+		Oito:   6,
+		Nove:   7,
+		Dez:    8,
+		Valete: 9,
+		Dama:   10,
+		Rei:    11,
+		As:     12,
 	}
 
 	sort.Slice(*b, func(i, j int) bool {
-		if ordemDosNaipes[(*b)[i].Naipe] != ordemDosNaipes[(*b)[j].Naipe] {
-			return ordemDosNaipes[(*b)[i].Naipe] < ordemDosNaipes[(*b)[j].Naipe]
+		if ordemDosNaipes[(*b)[i].naipe] != ordemDosNaipes[(*b)[j].naipe] {
+			return ordemDosNaipes[(*b)[i].naipe] < ordemDosNaipes[(*b)[j].naipe]
 		}
-		return ordemDosValores[(*b)[i].Valor] < ordemDosValores[(*b)[j].Valor]
+		return ordemDosValores[(*b)[i].valor] < ordemDosValores[(*b)[j].valor]
 	})
 }
 
 func (b Baralho) String() string {
 	var cartas []string
 	for _, carta := range b {
-		cartas = append(cartas, fmt.Sprintf("%s de %s", carta.Valor, carta.Naipe))
+		cartas = append(cartas, fmt.Sprintf("%s de %s", carta.valor, carta.naipe))
 	}
 
 	return strings.Join(cartas, "\n")
@@ -106,6 +134,8 @@ func (b *Baralho) PegarCartaAleatoria() (Carta, error) {
 	index := r.Intn(len(*b))
 
 	carta := (*b)[index]
+
+	*b = append((*b)[:index], (*b)[index+1:]...)
 
 	return carta, nil
 }
