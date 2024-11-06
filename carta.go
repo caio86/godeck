@@ -1,4 +1,4 @@
-package baralho
+package godeck
 
 type Naipe string
 

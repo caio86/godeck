@@ -1,4 +1,4 @@
-package baralho
+package godeck
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 
 type Baralho []Carta
 
-func NewBaralho() Baralho {
+func New() Baralho {
 	naipes := []Naipe{Copas, Espadas, Ouros, Paus}
 	valores := []Valor{Dois, Tres, Quatro, Cinco, Seis, Sete, Oito, Nove, Dez, Valete, Dama, Rei, As}
 	baralho := make(Baralho, 0, 52)
