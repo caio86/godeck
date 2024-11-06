@@ -24,7 +24,7 @@ func NewBaralho() Baralho {
 	return baralho
 }
 
-func (b *Baralho) Embaralhar() {
+func (b *Baralho) Shuffle() {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	r.Shuffle(len(*b), func(i, j int) {
 		(*b)[i], (*b)[j] = (*b)[j], (*b)[i]
@@ -67,21 +67,25 @@ func (b Baralho) String() string {
 	for _, carta := range b {
 		cartas = append(cartas, fmt.Sprintf("%s de %s", carta.valor, carta.naipe))
 	}
-
 	return strings.Join(cartas, "\n")
 }
 
-func (b *Baralho) PegarCartaAleatoria() (Carta, error) {
+func (b *Baralho) DrawRandomCard() (Carta, error) {
 	if len(*b) == 0 {
 		return Carta{}, fmt.Errorf("baralho vazio")
 	}
-
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	index := r.Intn(len(*b))
-
 	carta := (*b)[index]
-
 	*b = append((*b)[:index], (*b)[index+1:]...)
+	return carta, nil
+}
 
+func (b *Baralho) DrawCard() (Carta, error) {
+	if len(*b) == 0 {
+		return Carta{}, fmt.Errorf("baralho vazio")
+	}
+	carta := (*b)[0]
+	*b = (*b)[1:]
 	return carta, nil
 }

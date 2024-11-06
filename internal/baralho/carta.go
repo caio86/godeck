@@ -1,9 +1,8 @@
 package baralho
 
-type (
-	Naipe string
-	Valor string
-)
+type Naipe string
+
+type Valor string
 
 const (
 	Copas   Naipe = "Copas"
